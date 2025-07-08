@@ -1,0 +1,13 @@
+# Netlify Configuration File
+
+[build]
+  # This tells Netlify where our functions are located.
+  functions = "netlify/functions"
+
+  # This tells Netlify that our main site is in the root folder.
+  publish = "." 
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200

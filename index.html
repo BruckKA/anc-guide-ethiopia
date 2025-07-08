@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Pregnancy Journey - Ethiopia ANC Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FDFBF8; }
+        /* Custom colors based on provided React component snippets */
+        .bg-primary { background-color: #4FD1C5; } /* Existing */
+        .text-primary { color: #4FD1C5; } /* Existing */
+        .border-primary { border-color: #4FD1C5; } /* Existing */
+        .bg-secondary { background-color: #FEEBC8; } /* Existing */
+        .text-secondary-dark { color: #975A16; } /* Existing */
+        .bg-danger { background-color: #FFF5F5; } /* Existing */
+        .text-danger { color: #E53E3E; } /* Existing */
+        .border-danger { border-color: #E53E3E; } /* Existing */
+
+        /* New colors from React snippets for better theming */
+        .border-sage-200 { border-color: #D1FAE5; }
+        .bg-sage-50 { background-color: #F0FDF4; }
+        .bg-sage-500 { background-color: #34D399; }
+        .text-sage-500 { color: #34D399; }
+        .text-sage-600 { color: #10B981; }
+        .text-sage-700 { color: #059669; }
+        .text-sage-800 { color: #047857; }
+
+        .border-terracotta-200 { border-color: #FEEBC8; }
+        .border-terracotta-300 { border-color: #FBD38D; }
+        .bg-terracotta-50 { background-color: #FFF7ED; }
+        .bg-terracotta-500 { background-color: #ED8936; }
+        .text-terracotta-800 { color: #975A16; }
+
+        .bg-cream-100 { background-color: #FFFBEB; }
+
+        /* General styles */
+        .nav-link.active { color: #4FD1C5; border-bottom: 2px solid #4FD1C5; }
+        .timeline-item::before { content: ''; position: absolute; background-color: #CBD5E0; height: 2px; width: 100%; top: 50%; left: -50%; transform: translateY(-50%); z-index: -1; }
+        .timeline-item:first-child::before { display: none; }
+        
+        /* Mimicking shadcn/ui Tabs */
+        .tabs-list { display: flex; justify-content: center; background-color: #FFFBEB; border-radius: 0.5rem; padding: 0.5rem; }
+        .tabs-trigger {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            color: #6B7280; /* gray-500 */
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            flex-grow: 1; /* Make tabs fill space */
+            text-align: center;
+        }
+        .tabs-trigger.active {
+            background-color: #4FD1C5; /* primary color */
+            color: white;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .tabs-content { margin-top: 1rem; }
+
+        /* Mimicking shadcn/ui Card */
+        .pregnancy-card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            border: 1px solid;
+        }
+        .pregnancy-card-header { padding-bottom: 1rem; }
+        .pregnancy-card-title { font-size: 1.25rem; font-weight: 600; line-height: 1.75rem; } /* text-xl font-semibold */
+        .pregnancy-card-description { font-size: 0.875rem; color: #6B7280; line-height: 1.5rem; } /* text-sm text-gray-600 */
+        .pregnancy-card-content { padding-top: 1.5rem; }
+
+        /* Mimicking shadcn/ui Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* rounded-full */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+        }
+        .badge-default { background-color: #4FD1C5; color: white; }
+        .badge-secondary { background-color: #FEEBC8; color: #975A16; }
+        .badge-outline { border: 1px solid #D1FAE5; color: #047857; background-color: transparent; } /* border-sage-300, text-sage-800 */
+
+        /* Mimicking shadcn/ui Alert */
+        .alert {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border: 1px solid;
+        }
+        .alert-title { font-size: 1.125rem; font-weight: 700; } /* text-lg font-bold */
+        .alert-description { font-size: 0.875rem; line-height: 1.5rem; margin-top: 0.5rem; } /* text-sm mt-2 */
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .animate-pulse { animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header id="header" class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="font-bold text-lg md:text-xl" data-translate-key="header_title">
+                    Your Pregnancy Journey
+                </div>
+                <div class="flex items-center space-x-4">
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="#welcome" class="nav-link text-gray-600 hover:text-primary transition-colors duration-300 active" data-translate-key="nav_home">Home</a>
+                        <a href="#journey" class="nav-link text-gray-600 hover:text-primary transition-colors duration-300" data-translate-key="nav_journey">ANC Journey</a>
+                        <a href="#visits" class="nav-link text-gray-600 hover:text-primary transition-colors duration-300" data-translate-key="nav_visits">Visits</a>
+                        <a href="#danger" class="nav-link text-gray-600 hover:text-primary transition-colors duration-300" data-translate-key="nav_danger">Danger Signs</a>
+                        <a href="#qa-assistant" class="nav-link text-gray-600 hover:text-primary transition-colors duration-300" data-translate-key="nav_qa">Ask Your Guide</a>
+                    </nav>
+                    <button id="translate-btn" class="px-3 py-1.5 border border-primary text-primary rounded-full text-sm font-semibold hover:bg-primary hover:text-white transition-colors duration-300">
+                        አማርኛ
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#welcome" class="block py-2 px-4 text-sm nav-link mobile-nav active" data-translate-key="nav_home">Home</a>
+                <a href="#journey" class="block py-2 px-4 text-sm nav-link mobile-nav" data-translate-key="nav_journey">ANC Journey</a>
+                <a href="#visits" class="block py-2 px-4 text-sm nav-link mobile-nav" data-translate-key="nav_visits">Visits</a>
+                <a href="#danger" class="block py-2 px-4 text-sm nav-link mobile-nav" data-translate-key="nav_danger">Danger Signs</a>
+                <a href="#qa-assistant" class="block py-2 px-4 text-sm nav-link mobile-nav" data-translate-key="nav_qa">Ask Your Guide</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- Welcome Section -->
+        <section id="welcome" class="mb-16">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold mb-2" data-translate-key="welcome_title">
+                    Welcome to Your Pregnancy Journey!
+                </h1>
+                <p class="max-w-3xl mx-auto text-gray-600" data-translate-key="welcome_subtitle">
+                    This guide, based on Ethiopia's National Antenatal Care (ANC) Guideline, helps you understand your care schedule, what to expect at each visit, and how to have a positive pregnancy experience.
+                </p>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
+                <div class="md:flex md:space-x-8">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h2 class="text-2xl font-semibold mb-3" data-translate-key="weekly_guide_title">
+                            Your Weekly Pregnancy Guide
+                        </h2>
+                        <p class="text-gray-600 mb-4" data-translate-key="weekly_guide_desc">
+                            Get personalized guidance for your current week of pregnancy.
+                        </p>
+                        <div class="flex items-center space-x-2">
+                            <input type="number" id="week-input" min="1" max="41" placeholder="Enter week (1-41)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition">
+                            <button id="update-week-btn" class="bg-primary text-white font-semibold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity" data-translate-key="update_btn">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                    <div id="weekly-info" class="md:w-1/2 bg-gray-50 p-4 rounded-lg">
+                        <div id="weekly-content-placeholder">
+                            <p class="text-gray-500" data-translate-key="weekly_placeholder">
+                                Enter your current week of pregnancy to see detailed information about your baby's development, common symptoms, and health tips for this stage.
+                            </p>
+                        </div>
+                        <div id="weekly-content-display" class="hidden">
+                            <h3 class="font-bold text-lg" id="weekly-trimester" data-translate-key="trimester_display"></h3>
+                            <h4 class="font-semibold text-primary" id="weekly-title" data-translate-key="weekly_title_display"></h4>
+                            <div class="mt-2 text-sm">
+                                <p><strong data-translate-key="weekly_focus">This Week's Focus: </strong> <span id="weekly-focus-text" data-translate-key="weekly_focus_text"></span></p>
+                                <p><strong data-translate-key="weekly_symptoms">Common Symptoms: </strong> <span id="weekly-symptoms-text" data-translate-key="weekly_symptoms_text"></span></p>
+                                <p><strong data-translate-key="weekly_milestones">Baby's Milestone: </strong> <span id="weekly-milestones-text" data-translate-key="weekly_milestones_text"></span></p>
+                                <p><strong data-translate-key="weekly_health_tips">Health Tip: </strong> <span id="weekly-health-tips-text" data-translate-key="weekly_health_tips_text"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANC Journey Section (New structure based on PregnancyTimeline snippet) -->
+        <section id="journey" class="mb-16 space-y-6">
+            <div class="pregnancy-card border-sage-200">
+                <div class="pregnancy-card-header">
+                    <h3 class="pregnancy-card-title flex items-center space-x-2 text-terracotta-800">
+                        <!-- Calendar icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        <span data-translate-key="journey_title">Your ANC Journey: 8 Contacts for a Healthy Pregnancy</span>
+                    </h3>
+                    <p class="pregnancy-card-description text-sage-700" data-translate-key="journey_desc_long">
+                        The guideline recommends a minimum of 8 contacts with your healthcare provider during your pregnancy. This ensures you and your baby are closely monitored.
+                    </p>
+                </div>
+            </div>
+
+            <div id="pregnancy-timeline-grid" class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <!-- Timeline cards will be injected here by JS -->
+            </div>
+
+            <div class="pregnancy-card border-sage-200 bg-gradient-to-r from-sage-50 to-terracotta-50">
+                <div class="pregnancy-card-content pt-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-sage-500 p-2 rounded-full flex-shrink-0">
+                            <!-- Info icon SVG -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-white"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-terracotta-800 mb-2" data-translate-key="timeline_note_title">Note for High-Risk Pregnancies</h4>
+                            <p class="text-sage-700 text-sm leading-relaxed" data-translate-key="timeline_note_desc">
+                                If you have specific health conditions or complications, your healthcare provider may schedule more frequent visits. Always follow your provider's personalized recommendations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Visits Section (New structure based on ANCVisitDetails snippet) -->
+        <section id="visits" class="mb-16 space-y-6">
+            <div class="pregnancy-card border-sage-200">
+                <div class="pregnancy-card-header">
+                    <h3 class="pregnancy-card-title flex items-center space-x-2 text-terracotta-800">
+                        <!-- Calendar icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                        <span data-translate-key="visits_title">Detailed ANC Visit Information</span>
+                    </h3>
+                    <p class="pregnancy-card-description text-sage-700" data-translate-key="visits_desc_long">
+                        Understand what happens at each antenatal care visit and how to prepare for them.
+                    </p>
+                </div>
+            </div>
+
+            <div id="detailed-visits-container" class="grid gap-6">
+                <!-- Detailed visit cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Danger Signs Section (New structure based on DangerSigns snippet) -->
+        <section id="danger" class="mb-16 space-y-6">
+            <!-- Emergency Alert -->
+            <div class="alert border-red-300 bg-red-50 animate-fade-in">
+                <!-- AlertTriangle icon SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-red-600"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                <div>
+                    <h3 class="alert-title text-red-800" data-translate-key="danger_alert_title">EMERGENCY: Call Your Healthcare Provider Immediately</h3>
+                    <p class="alert-description text-red-700" data-translate-key="danger_alert_desc">
+                        If you experience ANY of the signs below, contact your healthcare provider or go to the nearest health facility immediately. These could be signs of serious complications that require urgent attention.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Introduction Card -->
+            <div class="pregnancy-card border-sage-200">
+                <div class="pregnancy-card-header">
+                    <h3 class="pregnancy-card-title flex items-center space-x-2 text-terracotta-800">
+                        <!-- Bell icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                        <span data-translate-key="danger_title_main">Pregnancy Danger Signs</span>
+                    </h3>
+                    <p class="pregnancy-card-description text-sage-700 leading-relaxed" data-translate-key="danger_desc_main">
+                        Being aware of these warning signs can help protect you and your baby. Don't wait or try to "tough it out" - early intervention can make all the difference.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Danger Signs by Category -->
+            <div id="danger-signs-categorized-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Categorized danger signs cards will be injected here by JS -->
+            </div>
+
+            <!-- Action Steps -->
+            <div class="pregnancy-card border-terracotta-200 bg-gradient-to-r from-terracotta-50 to-sage-50">
+                <div class="pregnancy-card-header">
+                    <h3 class="pregnancy-card-title flex items-center space-x-2 text-terracotta-800">
+                        <!-- Heart icon SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        <span data-translate-key="danger_action_title">What to Do in an Emergency</span>
+                    </h3>
+                </div>
+                <div class="pregnancy-card-content">
+                    <div class="grid gap-4 md:grid-cols-3">
+                        <div class="text-center p-4 bg-white/60 rounded-lg">
+                            <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                                1
+                            </div>
+                            <h4 class="font-semibold text-terracotta-800 mb-2" data-translate-key="danger_action_1_title">
+                                Don't Wait
+                            </h4>
+                            <p class="text-sm text-sage-700" data-translate-key="danger_action_1_desc">
+                                Call your healthcare provider immediately or go to the nearest health facility
+                            </p>
+                        </div>
+                        <div class="text-center p-4 bg-white/60 rounded-lg">
+                            <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                                2
+                            </div>
+                            <h4 class="font-semibold text-terracotta-800 mb-2" data-translate-key="danger_action_2_title">
+                                Bring Support
+                            </h4>
+                            <p class="text-sm text-sage-700" data-translate-key="danger_action_2_desc">
+                                Have a family member or friend accompany you if possible
+                            </p>
+                        </div>
+                        <div class="text-center p-4 bg-white/60 rounded-lg">
+                            <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-3 text-lg font-bold">
+                                3
+                            </div>
+                            <h4 class="font-semibold text-terracotta-800 mb-2" data-translate-key="danger_action_3_title">
+                                Stay Calm
+                            </h4>
+                            <p class="text-sm text-sage-700" data-translate-key="danger_action_3_desc">
+                                Remember that many pregnancy complications can be successfully treated with prompt care
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prevention Tips -->
+            <div class="pregnancy-card border-sage-200">
+                <div class="pregnancy-card-header">
+                    <h3 class="pregnancy-card-title text-terracotta-800" data-translate-key="danger_prevention_title">
+                        Prevention & Preparation
+                    </h3>
+                </div>
+                <div class="pregnancy-card-content">
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div>
+                            <h4 class="font-semibold text-sage-800 mb-3" data-translate-key="danger_numbers_title">
+                                Keep These Numbers Ready:
+                            </h4>
+                            <ul class="space-y-2 text-sm text-sage-700">
+                                <li>• <span data-translate-key="danger_numbers_1">Your healthcare provider's direct number</span></li>
+                                <li>• <span data-translate-key="danger_numbers_2">Nearest hospital/health center</span></li>
+                                <li>• <span data-translate-key="danger_numbers_3">Emergency transport contact</span></li>
+                                <li>• <span data-translate-key="danger_numbers_4">Family support person</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-sage-800 mb-3" data-translate-key="danger_monitoring_title">
+                                Regular Monitoring:
+                            </h4>
+                            <ul class="space-y-2 text-sm text-sage-700">
+                                <li>• <span data-translate-key="danger_monitoring_1">Attend all scheduled ANC visits</span></li>
+                                <li>• <span data-translate-key="danger_monitoring_2">Track fetal movements daily</span></li>
+                                <li>• <span data-translate-key="danger_monitoring_3">Monitor your blood pressure</span></li>
+                                <li>• <span data-translate-key="danger_monitoring_4">Follow medication schedules</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q&A Assistant Section -->
+        <section id="qa-assistant" class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-4xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2" data-translate-key="qa_title">
+                    Ask Your Guide
+                </h2>
+                <p class="max-w-2xl mx-auto text-gray-600" data-translate-key="qa_desc">
+                    Ask any question about your pregnancy journey based on general medical knowledge.
+                </p>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <input type="text" id="qa-input" placeholder="e.g., When will I get my first ultrasound?" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition">
+                <button id="qa-ask-btn" class="bg-primary text-white font-semibold px-6 py-2 rounded-lg hover:opacity-90 transition-opacity" data-translate-key="qa_ask_btn">
+                    Ask
+                </button>
+                <div id="qa-response-area" class="bg-gray-50 p-4 rounded-lg min-h-[100px] flex items-center justify-center text-gray-700 text-center">
+                    <p data-translate-key="qa_initial_prompt">Your answers will appear here.</p>
+                </div>
+                <div id="qa-loading-indicator" class="hidden text-center text-primary font-semibold">
+                    <span data-translate-key="qa_loading">Thinking...</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Disclaimer -->
+        <footer class="mt-16 pt-8 border-t border-gray-200 text-center text-sm text-gray-500">
+            <h3 class="font-semibold mb-2" data-translate-key="disclaimer_title">Important Notice</h3>
+            <p data-translate-key="disclaimer_text">
+                This application provides general health information based on the Ethiopian National Antenatal Care Guideline (February 2022) and general medical knowledge. It is intended for educational purposes only and should not be considered a substitute for professional medical advice, diagnosis, or treatment from a qualified healthcare provider.
+            </p>
+        </footer>
+
+    </main>
+
+<script>
+const appData = {
+    currentLang: 'en',
+    translations: {
+        header_title: { en: 'Your Pregnancy Journey', am: 'የእርግዝናዎ ጉዞ' },
+        nav_home: { en: 'Home', am: 'ዋና ገጽ' },
+        nav_journey: { en: 'ANC Journey', am: 'የክትትል ጉዞ' },
+        nav_visits: { en: 'Visits', am: 'ጉብኝቶች' },
+        nav_danger: { en: 'Danger Signs', am: 'አደጋ ምልክቶች' },
+        nav_qa: { en: 'Ask Your Guide', am: 'መመሪያዎን ይጠይቁ' },
+        welcome_title: { en: 'Welcome to Your Pregnancy Journey!', am: 'ወደ እርግዝና ጉዞዎ እንኳን በደህና መጡ!' },
+        welcome_subtitle: { en: "This guide, based on Ethiopia's National Antenatal Care (ANC) Guideline, helps you understand your care schedule, what to expect at each visit, and how to have a positive pregnancy experience.", am: "በኢትዮጵያ ብሔራዊ የእርግዝና ክትትል መመሪያ ላይ የተመሰረተው ይህ መመሪያ፣ የእንክብካቤ መርሃ ግብርዎን፣ በእያንዳንዱ ጉብኝት ምን እንደሚጠብቁ፣ እና ጤናማ የእርግዝና ጊዜ እንዴት እንደሚያሳልፉ ለመረዳት ይረዳዎታል።" },
+        weekly_guide_title: { en: 'Your Weekly Pregnancy Guide', am: 'የሳምንታዊ የእርግዝና መመሪያዎ' },
+        weekly_guide_desc: { en: 'Get personalized guidance for your current week of pregnancy.', am: 'ለአሁኑ የእርግዝና ሳምንትዎ የተዘጋጀ መመሪያ ያግኙ።' },
+        update_btn: { en: 'Update', am: 'አዘምን' },
+        weekly_placeholder: { en: "Enter your current week of pregnancy to see detailed information about your baby's development, common symptoms, and health tips for this stage.", am: "ስለ ልጅዎ እድገት፣ የተለመዱ ምልክቶች እና ለዚህ ደረጃ የጤና ምክሮችን ለማየት የአሁኑን የእርግዝና ሳምንትዎን ያስገቡ።" },
+        weekly_focus: { en: "This Week's Focus:", am: "የዚህ ሳምንት ትኩረት:" },
+        weekly_symptoms: { en: "Common Symptoms:", am: "የተለመዱ ምልክቶች:" },
+        weekly_milestones: { en: "Baby's Milestone:", am: "የልጅዎ ምዕራፍ:" },
+        weekly_health_tips: { en: "Health Tip:", am: "የጤና ምክር:" },
+        trimester1: { en: "First Trimester", am: "የመጀመሪያው ሶስት ወር" },
+        trimester2: { en: "Second Trimester", am: "ሁለተኛው ሶስት ወር" },
+        trimester3: { en: "Third Trimester", am: "ሶስተኛው ሶስት ወር" },
+        journey_title: { en: 'Your ANC Journey: 8 Contacts for a Healthy Pregnancy', am: 'የእርስዎ የእርግዝና ክትትል ጉዞ፡ ለጤናማ እርግዝና 8 ግንኙነቶች' },
+        journey_desc_long: { en: 'The guideline recommends a minimum of 8 contacts with your healthcare provider during your pregnancy. This ensures you and your baby are closely monitored.', am: 'መመሪያው በእርግዝናዎ ወቅት ከጤና ባለሙያዎ ጋር ቢያንስ 8 ግንኙነቶችን ይመክራል። ይህ እርስዎ እና ልጅዎ በቅርበት መከታተላችሁን ያረጋግጣል።' },
+        timeline_note_title: { en: 'Note for High-Risk Pregnancies', am: 'ለከፍተኛ ተጋላጭ እርግዝና ማስታወሻ' },
+        timeline_note_desc: { en: 'If you have specific health conditions or complications, your healthcare provider may schedule more frequent visits. Always follow your provider\'s personalized recommendations.', am: 'የተለዩ የጤና እክሎች ወይም ችግሮች ካሉብዎ፣ የጤና አገልግሎት ሰጪዎ ብዙ ጊዜ ጉብኝቶችን ሊያዘጋጅ ይችላል። ሁልጊዜ የጤና አገልግሎት ሰጪዎን ግላዊ ምክሮች ይከተሉ።' },
+        visits_title: { en: 'Detailed ANC Visit Information', am: 'ዝርዝር የእርግዝና ክትትል ጉብኝት መረጃ' },
+        visits_desc_long: { en: 'Understand what happens at each antenatal care visit and how to prepare for them.', am: 'በእያንዳንዱ የእርግዝና ክትትል ጉብኝት ምን እንደሚሆን እና እንዴት መዘጋጀት እንዳለብዎ ይረዱ።' },
+        danger_alert_title: { en: 'EMERGENCY: Call Your Healthcare Provider Immediately', am: 'አስቸኳይ፡ የጤና አገልግሎት ሰጪዎን ወዲያውኑ ይደውሉ' },
+        danger_alert_desc: { en: 'If you experience ANY of the signs below, contact your healthcare provider or go to the nearest health facility immediately. These could be signs of serious complications that require urgent attention.', am: 'ከዚህ በታች ከተዘረዘሩት ምልክቶች ውስጥ ማንኛውንም ካጋጠመዎት፣ ወዲያውኑ የጤና አገልግሎት ሰጪዎን ያነጋግሩ ወይም ወደ ቅርቡ የጤና ተቋም ይሂዱ። እነዚህ አስቸኳይ ትኩረት የሚሹ ከባድ ችግሮች ምልክቶች ሊሆኑ ይችላሉ።' },
+        danger_title_main: { en: 'Pregnancy Danger Signs', am: 'የእርግዝና አደጋ ምልክቶች' },
+        danger_desc_main: { en: 'Being aware of these warning signs can help protect you and your baby. Don\'t wait or try to "tough it out" - early intervention can make all the difference.', am: 'እነዚህን ማስጠንቀቂያ ምልክቶች ማወቅ እርስዎንና ህፃንዎን ለመጠበቅ ይረዳል። አይጠብቁ ወይም "መቆየት" አይሞክሩ - ቀደም ያለ ጣልቃ ገብነት ሁሉንም ልዩነት ያመጣል።' },
+        danger_action_title: { en: 'What to Do in an Emergency', am: 'በአስቸኳይ ጊዜ ምን ማድረግ እንዳለብዎ' },
+        danger_action_1_title: { en: 'Don\'t Wait', am: 'አይጠብቁ' },
+        danger_action_1_desc: { en: 'Call your healthcare provider immediately or go to the nearest health facility', am: 'የጤና አገልግሎት ሰጪዎን ወዲያውኑ ይደውሉ ወይም ወደ ቅርቡ የጤና ተቋም ይሂዱ' },
+        danger_action_2_title: { en: 'Bring Support', am: 'ድጋፍ ያምጡ' },
+        danger_action_2_desc: { en: 'Have a family member or friend accompany you if possible', am: 'በተቻለ መጠን የቤተሰብ አባል ወይም ጓደኛ ይዘው ይሂዱ' },
+        danger_action_3_title: { en: 'Stay Calm', am: 'ረጋ ይበሉ' },
+        danger_action_3_desc: { en: 'Remember that many pregnancy complications can be successfully treated with prompt care', am: 'ብዙ የእርግዝና ችግሮች በፈጣን ሕክምና በተሳካ ሁኔታ ሊታከሙ እንደሚችሉ ያስታውሱ' },
+        danger_prevention_title: { en: 'Prevention & Preparation', am: 'መከላከያ እና ዝግጅት' },
+        danger_numbers_title: { en: 'Keep These Numbers Ready:', am: 'እነዚህን ቁጥሮች ዝግጁ ያድርጉ:' },
+        danger_numbers_1: { en: 'Your healthcare provider\'s direct number', am: 'የጤና አገልግሎት ሰጪዎ ቀጥተኛ ቁጥር' },
+        danger_numbers_2: { en: 'Nearest hospital/health center', am: 'ቅርብ ሆስፒታል/የጤና ማዕከል' },
+        danger_numbers_3: { en: 'Emergency transport contact', am: 'የአስቸኳይ ጊዜ ትራንስፖርት ቁጥር' },
+        danger_numbers_4: { en: 'Family support person', am: 'የቤተሰብ ድጋፍ ሰጪ' },
+        danger_monitoring_title: { en: 'Regular Monitoring:', am: 'መደበኛ ክትትል:' },
+        danger_monitoring_1: { en: 'Attend all scheduled ANC visits', am: 'ሁሉንም የታቀዱ ANC ጉብኝቶች ይከታተሉ' },
+        danger_monitoring_2: { en: 'Track fetal movements daily', am: 'የፅንስ እንቅስቃሴ በየቀኑ ይከታተሉ' },
+        danger_monitoring_3: { en: 'Monitor your blood pressure', am: 'የደም ግፊትዎን ይቆጣጠሩ' },
+        danger_monitoring_4: { en: 'Follow medication schedules', am: 'የመድሃኒት መርሐግብር ይከተሉ' },
+        qa_title: { en: 'Ask Your Guide', am: 'መመሪያዎን ይጠይቁ' },
+        qa_desc: { en: 'Ask any question about your pregnancy journey based on general medical knowledge.', am: 'በአጠቃላይ የህክምና እውቀት ላይ ተመስርተው ስለ እርግዝና ጉዞዎ ማንኛውንም ጥያቄ ይጠይቁ።' },
+        qa_ask_btn: { en: 'Ask', am: 'ይጠይቁ' },
+        qa_initial_prompt: { en: 'Your answers will appear here.', am: 'መልሶችዎ እዚህ ይታያሉ።' },
+        qa_loading: { en: 'Thinking...', am: 'እየታሰበ ነው...' },
+        qa_error: { en: 'Sorry, I could not process your request at this time. Please try again.', am: 'ይቅርታ፣ ጥያቄዎን በአሁኑ ጊዜ ማስተናገድ አልቻልኩም። እባክዎ እንደገና ይሞክሩ።' },
+        qa_no_answer: { en: 'I am sorry, but I cannot provide a specific answer to that question based on the general knowledge available to me. Please consult a healthcare professional for personalized advice.', am: 'ይቅርታ፣ ግን ባለው አጠቃላይ እውቀት ላይ ተመስርቶ ለዚያ ጥያቄ የተለየ መልስ መስጠት አልችልም። እባክዎ ለግል የተበጀ ምክር የጤና ባለሙያ ያማክሩ።' },
+        disclaimer_title: { en: 'Important Notice', am: 'ጠቃሚ ማሳሰቢያ' },
+        disclaimer_text: { en: "This application provides general health information based on the Ethiopian National Antenatal Care Guideline (February 2022) and general medical knowledge. It is intended for educational purposes only and should not be considered a substitute for professional medical advice, diagnosis, or treatment from a qualified healthcare provider. Always seek the advice of your doctor or other qualified health professional with any questions you may have regarding a medical condition or your pregnancy. Never disregard professional medical advice or delay in seeking it because of something you have read on this application.", am: "ይህ መተግበሪያ በኢትዮጵያ ብሔራዊ የእርግዝና ክትትል መመሪያ (የካቲት 2022) እና በአጠቃላይ የህክምና እውቀት ላይ የተመሰረተ አጠቃላይ መረጃ ይሰጣል። ለትምህርታዊ ዓላማዎች ብቻ የታሰበ ሲሆን ከብቁ የጤና ባለሙያ የሚሰጠውን የህክምና ምክር ምትክ ተደርጎ ሊወሰድ አይገባም። ማንኛውንም የህክምና ሁኔታ ወይም እርግዝናዎን በተመለከተ ጥያቄ ካለዎት ሁልጊዜ የዶክተርዎን ወይም የሌላ ብቁ የጤና ባለሙያ ምክር ይጠይቁ። በዚህ መተግበሪያ ላይ ባነበቡት ነገር ምክንያት የባለሙያ የህክምና ምክርን ችላ አይበሉ ወይም እሱን ለመፈለግ አይዘገዩ።" },
+    },
+    weeklyGuide: {
+        12: {
+            trimesterKey: 'trimester1',
+            title: { en: "Week 12: Your First Contact", am: "ሳምንት 12: የመጀመሪያ ግንኙነትዎ" },
+            focus: { en: "Confirming pregnancy and assessing overall health.", am: "እርግዝናን ማረጋገጥ እና አጠቃላይ ጤናን መገምገም" },
+            symptoms: { en: "Fatigue, nausea, frequent urination.", am: "ድካም፣ ማቅለሽለሽ፣ በተደጋጋሚ ሽንት መሽናት" },
+            milestones: { en: "Baby's major organs have formed.", am: "የልጅዎ ዋና ዋና አካላት ተፈጥረዋል" },
+            healthTips: { en: "Start taking Iron and Folic Acid (IFA) supplements daily.", am: "የብረት እና ፎሊክ አሲድ (IFA) ተጨማሪዎችን በየቀኑ መውሰድ ይጀምሩ" }
+        },
+        20: {
+            trimesterKey: 'trimester2',
+            title: { en: "Week 20: Checking In", am: "ሳምንት 20: ክትትል" },
+            focus: { en: "Monitoring your health and baby's growth.", am: "የእርስዎን ጤንነት እና የልጅዎን እድገት መከታተል" },
+            symptoms: { en: "You might start feeling fetal movements.", am: "የፅንስ እንቅስቃሴ ሊሰማዎት ይችላል" },
+            milestones: { en: "Baby can hear sounds.", am: "ልጅዎ ድምፆችን መስማት ይችላል" },
+            healthTips: { en: "Continue with IFA and Calcium. A deworming tablet is given.", am: "IFA እና ካልሲየም ይቀጥሉ። የትል መድኃኒት ይሰጣል" }
+        },
+        26: {
+            trimesterKey: 'trimester2',
+            title: { en: "Week 26: Mid-Pregnancy Check", am: "ሳምንት 26: የእርግዝና አጋማሽ ክትትል" },
+            focus: { en: "Screening for conditions like pre-eclampsia and diabetes.", am: "እንደ ፕሪ-ኤክላምፕሲያ እና የስኳር በሽታ ያሉ ሁኔታዎችን መመርመር" },
+            symptoms: { en: "Growing belly, possible backaches.", am: "እያደገ ያለ ሆድ፣ የጀርባ ህመም ሊኖር ይችላል" },
+            milestones: { en: "Baby's eyes can open and close.", am: "የልጅዎ አይኖች መከፈት እና መዘጋት ይችላሉ" },
+            healthTips: { en: "A urine test for protein is important at this stage.", am: "በዚህ ደረጃ የፕሮቲን የሽንት ምርመራ አስፈላጊ ነው" }
+        },
+        30: {
+            trimesterKey: 'trimester3',
+            title: { en: "Week 30: Preparation for Birth", am: "ሳምንት 30: ለወሊድ ዝግጅት" },
+            focus: { en: "Detailed discussion on birth preparedness.", am: "በወሊድ ዝግጅት ላይ ዝርዝር ውይይት" },
+            symptoms: { en: "Braxton Hicks contractions might start.", am: "የብራክስተን ሂክስ ምጥ ሊጀምር ይችላል" },
+            milestones: { en: "Baby is gaining weight rapidly.", am: "ልጅዎ በፍጥነት ክብደት እየጨመረ ነው" },
+            healthTips: { en: "Discuss your birth plan with your provider and family.", am: "የወሊድ እቅድዎን ከባለሙያዎ እና ከቤተሰብዎ ጋር ይወያዩ" }
+        },
+        34: {
+            trimesterKey: 'trimester3',
+            title: { en: "Week 34: Getting Closer", am: "ሳምንት 34: እየተቃረበ ነው" },
+            focus: { en: "Assessing fetal position.", am: "የፅንሱን አቀማመጥ መገምገም" },
+            symptoms: { en: "Increased fatigue and difficulty sleeping.", am: "የድካም መጨመር እና የእንቅልፍ ችግር" },
+            milestones: { en: "Baby's lungs are nearly fully developed.", am: "የልጅዎ ሳንባዎች ሊጠናቀቁ ተቃርበዋል" },
+            healthTips: { en: "Learn about breastfeeding and baby's immunization schedule.", am: "ስለ ጡት ማጥባት እና የልጅዎን የክትባት መርሃ ግብር ይወቁ" }
+        },
+        36: {
+            trimesterKey: 'trimester3',
+            title: { en: "Week 36: Nearing Full Term", am: "ሳምንት 36: ሙሉ ጊዜ መቃረብ" },
+            focus: { en: "Final checks and addressing anxieties about labor.", am: "የመጨረሻ ምርመራዎች እና ስለ ምጥ ያሉ ጭንቀቶችን መፍታት" },
+            symptoms: { en: "Baby may drop lower into your pelvis.", am: "ልጅዎ ወደ ዳሌዎ ዝቅ ሊል ይችላል" },
+            milestones: { en: "Baby is considered 'early term'.", am: "ልጅዎ 'ቀደም ብሎ የተወለደ' ተብሎ ይታሰባል" },
+            healthTips: { en: "Reinforce knowledge of danger signs and when to go to the hospital.", am: "የአደጋ ምልክቶችን እና ወደ ሆስፒታል መቼ መሄድ እንዳለብዎ ያለዎትን እውቀት ያጠናክሩ" }
+        },
+        38: {
+            trimesterKey: 'trimester3',
+            title: { en: "Week 38: Almost There!", am: "ሳምንት 38: ሊደርሱ ነው!" },
+            focus: { en: "Monitoring fetal wellbeing closely.", am: "የፅንሱን ደህንነት በቅርበት መከታተል" },
+            symptoms: { en: "You may feel more pelvic pressure.", am: "የበለጠ የዳሌ ግፊት ሊሰማዎት ይችላል" },
+            milestones: { en: "Baby is now 'full term'.", am: "ልጅዎ አሁን 'ሙሉ ጊዜ' ነው" },
+            healthTips: { en: "Practice fetal movement counting daily.", am: "በየቀኑ የፅንስ እንቅስቃሴን መቁጠር ይለማመዱ" }
+        },
+        40: {
+            trimesterKey: 'trimester3',
+            title: { en: "Week 40: Due Date Check", am: "ሳምንት 40: የወሊድ ቀን ምርመራ" },
+            focus: { en: "Assessing if labor is starting.", am: "ምጥ እየጀመረ መሆኑን መገምገም" },
+            symptoms: { en: "Signs of labor may begin.", am: "የምጥ ምልክቶች ሊጀምሩ ይችላሉ" },
+            milestones: { en: "Ready for birth!", am: "ለወሊድ ዝግጁ!" },
+            healthTips: { en: "Discuss options if pregnancy goes beyond the due date.", am: "እርግዝና ከወሊድ ቀን ካለፈ ስለ አማራጮች ይወያዩ" }
+        }
+    },
+    ancContacts: [
+        {
+            id: 1,
+            title: { en: '1st Contact', am: '1ኛ ግንኙነት' },
+            week: { en: 'Up to 12', am: 'እስከ 12' },
+            short_desc: { en: 'Your First Step', am: 'የመጀመሪያ እርምጃዎ' },
+            importance: { 
+                en: 'Confirm pregnancy, initial health assessment, and start planning for a healthy pregnancy and birth.', 
+                am: 'እርግዝናን ማረጋገጥ፣ የመጀመሪያ የጤና ግምገማ፣ እና ለጤናማ እርግዝና እና ወሊድ ማቀድ ይጀምሩ።'
+            },
+            assessments: { 
+                en: [
+                    "Personal and medical history", "Menstrual history (LNMP, EDD)", "Current pregnancy symptoms",
+                    "Past pregnancy outcomes", "Medical conditions (diabetes, TB, hypertension)", "Current medications",
+                    "Nutritional assessment", "Social history (alcohol, khat, smoking)", "Mental health check",
+                    "Intimate partner violence inquiry"
+                ],
+                am: [
+                    "የግል እና የህክምና ታሪክ", "የወር አበባ ታሪክ (LNMP, EDD)", "የአሁኑ የእርግዝና ምልክቶች",
+                    "ያለፉ የእርግዝና ውጤቶች", "የህክምና ሁኔታዎች (ስኳር በሽታ፣ ቲቢ፣ የደም ግፊት)", "የአሁኑ መድሃኒቶች",
+                    "የአመጋገብ ግምገማ", "ማህበራዊ ታሪክ (አልኮል፣ ጫት፣ ማጨስ)", "የአእምሮ ጤና ምርመራ",
+                    "የትዳር አጋር ጥቃት ጥያቄ"
+                ]
+            },
+            physicalExam: { 
+                en: [
+                    "General appearance", "Vital signs (BP, pulse, temp)", "Weight and height (BMI)",
+                    "MUAC screening", "Check for pallor (eyes, mouth, nails)", "Chest and heart check"
+                ],
+                am: [
+                    "አጠቃላይ ገጽታ", "አስፈላጊ ምልክቶች (የደም ግፊት፣ የልብ ምት፣ የሙቀት መጠን)", "ክብደት እና ቁመት (BMI)",
+                    "MUAC ምርመራ", "የቆዳ ቀለም መቀየር ምርመራ (አይኖች፣ አፍ፣ ጥፍር)", "የደረት እና የልብ ምርመራ"
+                ]
+            },
+            labTests: { 
+                en: [
+                    "Hemoglobin (for anemia)", "Blood group and Rh factor", "Urine analysis (infection, protein, sugar)",
+                    "HIV test", "Hepatitis B test", "Syphilis test", "Ultrasound (recommended before 24 weeks)"
+                ],
+                am: [
+                    "ሄሞግሎቢን (ለደም ማነስ)", "የደም አይነት እና Rh ፋክተር", "የሽንት ምርመራ (ለበሽታ፣ ፕሮቲን፣ ስኳር)",
+                    "የኤችአይቪ ምርመራ", "የሄፐታይተስ ቢ ምርመራ", "የቂጥኝ ምርመራ", "አልትራሳውንድ (ከ24 ሳምንታት በፊት ይመከራል)"
+                ]
+            },
+            counseling: { 
+                en: [
+                    "Healthy nutrition & diverse foods", "Start Iron and Folic Acid (IFA) daily", "Avoiding harmful substances",
+                    "Personal hygiene, safe water, sanitation", "Gentle exercise", "Early pregnancy danger signs",
+                    "Initial birth preparedness discussion", "Partner/Family involvement", "Td vaccine (first dose if needed)"
+                ],
+                am: [
+                    "ጤናማ አመጋገብ እና የተለያዩ ምግቦች", "በየቀኑ የብረት እና ፎሊክ አሲድ (IFA) መውሰድ ይጀምሩ", "ጎጂ ንጥረ ነገሮችን ማስወገድ",
+                    "የግል ንፅህና፣ ንጹህ ውሃ፣ የንፅህና አጠባበቅ", "ቀላል እንቅስቃሴ", "የመጀመሪያ እርግዝና አደጋ ምልክቶች",
+                    "የመጀመሪያ የወሊድ ዝግጅት ውይይት", "የትዳር አጋር/ቤተሰብ ተሳትፎ", "የቲዲ ክትባት (አስፈላጊ ከሆነ የመጀመሪያ ዶዝ)"
+                ]
+            },
+            dangerSigns: { 
+                en: [
+                    "Vaginal bleeding (any amount)", "Severe lower abdominal pain/cramping",
+                    "Persistent, severe nausea and vomiting", "Fever or chills", "Painful urination"
+                ],
+                am: [
+                    "የሴት ብልት ደም መፍሰስ (ማንኛውም መጠን)", "ከባድ የሆድ ህመም/ቁርጠት",
+                    "የማያቋርጥ፣ ከባድ ማቅለሽለሽ እና ማስታወክ", "ትኩሳት ወይም ብርድ", "ህመም ያለው ሽንት"
+                ]
+            }
+        },
+        {
+            id: 2,
+            title: { en: '2nd Contact', am: '2ኛ ግንኙነት' },
+            week: { en: 'Around 20', am: 'በ20ኛው' },
+            short_desc: { en: 'Checking In', am: 'ክትትል' },
+            importance: { 
+                en: 'Monitor your health and baby\'s growth. Reinforce important health messages and provide necessary interventions like deworming.',
+                am: 'የእርስዎን ጤንነት እና የልጅዎን እድገት ይከታተሉ። ጠቃሚ የጤና መልዕክቶችን ያጠናክሩ እና እንደ ትል ማጥፊያ ያሉ አስፈላጊ ጣልቃገብነቶችን ያቅርቡ።'
+            },
+            assessments: { 
+                en: [
+                    "Follow-up on previous findings", "Fetal movement inquiry (you might start feeling them)", "Any new complaints"
+                ],
+                am: [
+                    "በቀደሙት ግኝቶች ላይ ክትትል", "የፅንስ እንቅስቃሴ ጥያቄ (አሁን ሊሰማዎት ይችላል)", "አዲስ ቅሬታዎች"
+                ]
+            },
+            physicalExam: { 
+                en: [
+                    "General appearance", "Blood pressure", "Weight (check weight gain)", "Check for pallor",
+                    "MUAC measurement", "Measure uterine (fundal) height", "Listen for fetal heartbeat"
+                ],
+                am: [
+                    "አጠቃላይ ገጽታ", "የደም ግፊት", "ክብደት (የክብደት መጨመርን ይመልከቱ)", "የቆዳ ቀለም መቀየር ምርመራ",
+                    "MUAC መለኪያ", "የማህፀን (ፈንዳል) ቁመት መለኪያ", "የፅንስ የልብ ምት ማዳመጥ"
+                ]
+            },
+            labTests: { 
+                en: [
+                    "Ultrasound (if not done before 24 weeks)"
+                ],
+                am: [
+                    "አልትራሳውንድ (ከ24 ሳምንታት በፊት ካልተደረገ)"
+                ]
+            },
+            counseling: { 
+                en: [
+                    "Continue IFA and Calcium (1.5-2.0g daily from 14 weeks)",
+                    "Deworming (single dose Albendazole 400mg or Mebendazole 500mg)",
+                    "Nutrition reinforcement (diet diversity, extra meal)", "Danger signs reminder",
+                    "Continued assessment for mental health and intimate partner violence",
+                    "Td vaccine (second dose if first was given 4 weeks prior)"
+                ],
+                am: [
+                    "IFA እና ካልሲየም ይቀጥሉ (ከ14 ሳምንታት ጀምሮ በየቀኑ 1.5-2.0ግ)",
+                    "የትል ማጥፊያ (አንድ ዶዝ አልቤንዳዞል 400mg ወይም ሜቤንዳዞል 500mg)",
+                    "የአመጋገብ ማጠናከሪያ (የአመጋገብ ብዝሃነት፣ ተጨማሪ ምግብ)", "የአደጋ ምልክቶች ማስታወሻ",
+                    "ለአእምሮ ጤና እና ለትዳር አጋር ጥቃት ቀጣይነት ያለው ግምገማ",
+                    "የቲዲ ክትባት (የመጀመሪያው ከ4 ሳምንታት በፊት ከተሰጠ ሁለተኛ ዶዝ)"
+                ]
+            },
+            dangerSigns: { 
+                en: [
+                    "All general danger signs", "Reduced or absent fetal movements", "Leaking fluid from the vagina"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች", "የፅንስ እንቅስቃሴ መቀነስ ወይም መጥፋት", "ከሴት ብልት ፈሳሽ መፍሰስ"
+                ]
+            }
+        },
+        {
+            id: 3,
+            title: { en: '3rd Contact', am: '3ኛ ግንኙነት' },
+            week: { en: 'Around 26', am: 'በ26ኛው' },
+            short_desc: { en: 'Mid-Pregnancy Check', am: 'የእርግዝና አጋማሽ ክትትል' },
+            importance: {
+                en: 'Continue monitoring maternal and fetal wellbeing. Screen for specific conditions that can arise in mid-pregnancy, such as pre-eclampsia and gestational diabetes.',
+                am: 'የእናትና የፅንሱን ደህንነት መከታተሉን ይቀጥሉ። በእርግዝና አጋማሽ ላይ ሊከሰቱ የሚችሉ እንደ ፕሪ-ኤክላምፕሲያ እና የእርግዝና ስኳር በሽታ ያሉ የተወሰኑ ሁኔታዎችን ይመርምሩ።'
+            },
+            assessments: {
+                en: [
+                    "Review previous findings and concerns", "Assessment of maternal and fetal wellbeing"
+                ],
+                am: [
+                    "የቀደሙ ግኝቶች እና ስጋቶች ግምገማ", "የእናትና የፅንስ ደህንነት ግምገማ"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Similar to 20-week visit", "Continued monitoring of vital signs and growth"
+                ],
+                am: [
+                    "ከ20-ሳምንት ጉብኝት ጋር ተመሳሳይ", "የአስፈላጊ ምልክቶች እና የእድገት ቀጣይ ክትትል"
+                ]
+            },
+            labTests: {
+                en: [
+                    "Urine analysis for proteinuria (sign of pre-eclampsia)", "Urine gram stain (for infection)",
+                    "Gestational Diabetes (OGTT) for high-risk pregnant women"
+                ],
+                am: [
+                    "የሽንት ምርመራ ለፕሮቲኑሪያ (የፕሪ-ኤክላምፕሲያ ምልክት)", "የሽንት ግራም ስቴን (ለበሽታ)",
+                    "የእርግዝና ስኳር በሽታ (OGTT) ለከፍተኛ ተጋላጭ እርጉዝ ሴቶች"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Continue IFA and Calcium, assess adherence", "Reinforce nutrition and danger signs counseling",
+                    "Anti-D Immunoglobulin (if Rh-negative and indicated at 28 weeks)"
+                ],
+                am: [
+                    "IFA እና ካልሲየም ይቀጥሉ፣ መውሰድዎን ይገምግሙ", "የአመጋገብ እና የአደጋ ምልክቶች ምክር ማጠናከሪያ",
+                    "Anti-D ኢሚውኖግሎቡሊን (Rh-negative ከሆኑ እና በ28 ሳምንታት ከተገለጸ)"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs", "Swelling of face, hands, or feet", "Severe headache", "Blurred vision (could be pre-eclampsia)"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች", "የፊት፣ የእጅ፣ ወይም የእግር እብጠት", "ከባድ ራስ ምታት", "የእይታ መደብዘዝ (ፕሪ-ኤክላምፕሲያ ሊሆን ይችላል)"
+                ]
+            }
+        },
+        {
+            id: 4,
+            title: { en: '4th Contact', am: '4ኛ ግንኙነት' },
+            week: { en: 'Around 30', am: 'በ30ኛው' },
+            short_desc: { en: 'Third Trimester Prep', am: 'የሶስተኛው ወር ዝግጅት' },
+            importance: {
+                en: 'Focus on detailed preparation for birth and monitoring for any late-pregnancy complications. Counseling shifts towards birth and breastfeeding.',
+                am: 'በወሊድ ዝግጅት እና ማንኛውንም የኋለኛ እርግዝና ችግሮችን በመከታተል ላይ ያተኩሩ። ምክክር ወደ ወሊድ እና ጡት ማጥባት ይሸጋገራል።'
+            },
+            assessments: {
+                en: [
+                    "Review and follow-up on previous findings", "Focus on birth preparation"
+                ],
+                am: [
+                    "የቀደሙ ግኝቶች ግምገማ እና ክትትል", "በወሊድ ዝግጅት ላይ ትኩረት"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Continue previous assessments", "Fetal wellbeing evaluation (fundal height, fetal movement)"
+                ],
+                am: [
+                    "የቀደሙ ግምገማዎችን ይቀጥሉ", "የፅንስ ደህንነት ግምገማ (ፈንዳል ቁመት፣ የፅንስ እንቅስቃሴ)"
+                ]
+            },
+            labTests: {
+                en: [
+                    "Repeat Hemoglobin (Hb) test", "Repeat Syphilis and HIV testing (if at ongoing risk)"
+                ],
+                am: [
+                    "ተደጋጋሚ የሄሞግሎቢን (Hb) ምርመራ", "ተደጋጋሚ የቂጥኝ እና የኤችአይቪ ምርመራ (ቀጣይነት ያለው ተጋላጭነት ካለ)"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Continue IFA and Calcium supplements",
+                    "Detailed Birth Preparedness and Complication Readiness (BPCR): where to deliver, transport, finances, support person, decision-maker",
+                    "Counseling on optimal breastfeeding practices", "Continue Td vaccine schedule as needed"
+                ],
+                am: [
+                    "የIFA እና የካልሲየም ተጨማሪዎችን ይቀጥሉ",
+                    "ዝርዝር የወሊድ ዝግጅት እና ውስብስብነት ዝግጁነት (BPCR)፡ የት መውለድ፣ መጓጓዣ፣ ፋይናንስ፣ ደጋፊ ሰው፣ ውሳኔ ሰጪ",
+                    "ስለ ምርጥ የጡት ማጥባት ልምዶች ምክር", "የቲዲ ክትባት መርሃ ግብር እንደ አስፈላጊነቱ ይቀጥሉ"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs", "Signs of preterm labor (regular contractions, pressure in pelvis, backache before 37 weeks)"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች", "የቅድመ ወሊድ ምጥ ምልክቶች (መደበኛ ምጥ፣ በዳሌ ላይ ግፊት፣ ከ37 ሳምንታት በፊት የጀርባ ህመም)"
+                ]
+            }
+        },
+        {
+            id: 5,
+            title: { en: '5th Contact', am: '5ኛ ግንኙነት' },
+            week: { en: 'Around 34', am: 'በ34ኛው' },
+            short_desc: { en: 'Getting Closer', am: 'እየተቃረበ' },
+            importance: {
+                en: 'Assess the baby’s position (presentation) to see if they are head-down. Continue monitoring and preparation for birth and baby care.',
+                am: 'የልጁን አቀማመጥ (አቀራረብ) ጭንቅላቱ ወደ ታች መሆኑን ለማየት ይገምግሙ። ለወሊድ እና ለህፃናት እንክብካቤ ክትትል እና ዝግጅት ይቀጥሉ።'
+            },
+            assessments: {
+                en: [
+                    "Review and monitoring of previous findings", "Determine fetal presentation (head down, breech, etc.)"
+                ],
+                am: [
+                    "የቀደሙ ግኝቶች ግምገማ እና ክትትል", "የፅንሱን አቀራረብ መወሰን (ጭንቅላት ወደ ታች፣ መቀመጫ፣ ወዘተ)"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Continue previous assessments", "Specific examination for fetal presentation"
+                ],
+                am: [
+                    "የቀደሙ ግምገማዎችን ይቀጥሉ", "ለፅንስ አቀራረብ የተለየ ምርመራ"
+                ]
+            },
+            labTests: {
+                en: [
+                    "Urine test for proteinuria (for high-risk women)", "Repeat Syphilis and HIV if not done at 30 weeks and indicated"
+                ],
+                am: [
+                    "የሽንት ምርመራ ለፕሮቲኑሪያ (ለከፍተኛ ተጋላጭ ሴቶች)", "ቂጥኝ እና ኤችአይቪ በ30 ሳምንታት ካልተደረገ እና ከተገለጸ ይደገማል"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Continue IFA and Calcium", "Counsel on breastfeeding and immunization schedule for the baby",
+                    "Counsel on stimulation for early childhood development (talking/singing to baby)"
+                ],
+                am: [
+                    "IFA እና ካልሲየም ይቀጥሉ", "ስለ ጡት ማጥባት እና ለህፃኑ የክትባት መርሃ ግብር ምክር",
+                    "ለቅድመ ልጅነት እድገት ስለ ማነቃቂያ (ከህፃኑ ጋር መነጋገር/መዘመር) ምክር"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች"
+                ]
+            }
+        },
+        {
+            id: 6,
+            title: { en: '6th Contact', am: '6ኛ ግንኙነት' },
+            week: { en: 'Around 36', am: 'በ36ኛው' },
+            short_desc: { en: 'Nearing Full Term', am: 'ሙሉ ጊዜ መቃረብ' },
+            importance: {
+                en: 'Final checks before the typical delivery window begins. Address any remaining anxieties or questions about labor and delivery.',
+                am: 'የተለመደው የወሊድ መስኮት ከመጀመሩ በፊት የመጨረሻ ምርመራዎች። ስለ ምጥ እና ወሊድ ማንኛውንም ቀሪ ጭንቀቶችን ወይም ጥያቄዎችን ይመልሱ።'
+            },
+            assessments: {
+                en: [
+                    "Review of previous findings and physical exam continues", "Emphasis on assessing mental health"
+                ],
+                am: [
+                    "የቀደሙ ግኝቶች እና አካላዊ ምርመራዎች ግምገማ ይቀጥላል", "በአእምሮ ጤና ግምገማ ላይ ትኩረት"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Continue previous assessments"
+                ],
+                am: [
+                    "የቀደሙ ግምገማዎችን ይቀጥሉ"
+                ]
+            },
+            labTests: {
+                en: [
+                    "As indicated by provider"
+                ],
+                am: [
+                    "በጤና አገልግሎት ሰጪው እንደተገለጸው"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Continue IFA and Calcium", "Reinforce Birth Preparedness and Complication Readiness (BPCR) and danger signs"
+                ],
+                am: [
+                    "IFA እና ካልሲየም ይቀጥሉ", "የወሊድ ዝግጅት እና ውስብስብነት ዝግጁነት (BPCR) እና የአደጋ ምልክቶችን ማጠናከሪያ"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች"
+                ]
+            }
+        },
+        {
+            id: 7,
+            title: { en: '7th Contact', am: '7ኛ ግንኙነት' },
+            week: { en: 'Around 38', am: 'በ38ኛው' },
+            short_desc: { en: 'Almost There!', am: 'ሊደርሱ ነው!' },
+            importance: {
+                en: 'Address any fears, myths, or specific worries about labor and delivery. Monitor fetal wellbeing very closely as the due date approaches.',
+                am: 'ስለ ምጥ እና ወሊድ ማንኛውንም ፍራቻዎችን፣ አፈ ታሪኮችን ወይም የተወሰኑ ስጋቶችን ይመልሱ። የወሊድ ቀን ሲቃረብ የፅንሱን ደህንነት በቅርበት ይከታተሉ።'
+            },
+            assessments: {
+                en: [
+                    "Inquire about any fears or myths about labor", "Review fetal movement counting"
+                ],
+                am: [
+                    "ስለ ምጥ ያሉ ፍራቻዎች ወይም አፈ ታሪኮች ጥያቄ", "የፅንስ እንቅስቃሴ መቁጠር ግምገማ"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Continue previous assessments"
+                ],
+                am: [
+                    "የቀደሙ ግምገማዎችን ይቀጥሉ"
+                ]
+            },
+            labTests: {
+                en: [
+                    "Repeat Hemoglobin (Hb) test"
+                ],
+                am: [
+                    "ተደጋጋሚ የሄሞግሎቢን (Hb) ምርመራ"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Continue IFA and Calcium", "Advise on fetal movement counting daily",
+                    "Reinforce when to come to the facility for delivery"
+                ],
+                am: [
+                    "IFA እና ካልሲየም ይቀጥሉ", "በየቀኑ የፅንስ እንቅስቃሴን መቁጠር ምክር",
+                    "ለመውለድ ወደ ተቋሙ መቼ መምጣት እንዳለብዎ ማጠናከሪያ"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs", "Decreased or loss of fetal movement"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች", "የፅንስ እንቅስቃሴ መቀነስ ወይም መጥፋት"
+                ]
+            }
+        },
+        {
+            id: 8,
+            title: { en: '8th Contact', am: '8ኛ ግንኙነት' },
+            week: { en: 'Around 40', am: 'በ40ኛው' },
+            short_desc: { en: 'Due Date Check', am: 'የወሊድ ቀን ምርመራ' },
+            importance: {
+                en: 'Assess if labor is starting or if further action is needed if you go past your due date. Final check of fetal wellbeing.',
+                am: 'ምጥ እየጀመረ እንደሆነ ወይም ከወሊድ ቀንዎ ካለፈ ተጨማሪ እርምጃ እንደሚያስፈልግ ይገምግሙ። የፅንሱን ደህንነት የመጨረሻ ምርመራ።'
+            },
+            assessments: {
+                en: [
+                    "Review of physical health and fetal movement counting", "Assessment for labor onset or post-term management"
+                ],
+                am: [
+                    "የአካላዊ ጤንነት እና የፅንስ እንቅስቃሴ መቁጠር ግምገማ", "የምጥ መጀመሪያ ወይም ከወሊድ ቀን በኋላ ያለው አስተዳደር ግምገማ"
+                ]
+            },
+            physicalExam: {
+                en: [
+                    "Continue previous assessments", "Review fetal movement counting"
+                ],
+                am: [
+                    "የቀደሙ ግምገማዎችን ይቀጥሉ", "የፅንስ እንቅስቃሴ መቁጠር ግምገማ"
+                ]
+            },
+            labTests: {
+                en: [
+                    "Ultrasound scanning for fetal wellbeing assessment (if available and indicated)"
+                ],
+                am: [
+                    "የፅንስ ደህንነት ግምገማ አልትራሳውንድ (ካለ እና ከተገለጸ)"
+                ]
+            },
+            counseling: {
+                en: [
+                    "Discuss signs of labor and when to come to the hospital", "Discuss options if pregnancy goes beyond the due date"
+                ],
+                am: [
+                    "የምጥ ምልክቶችን እና ወደ ሆስፒታል መቼ መምጣት እንዳለብዎ መወያየት", "እርግዝና ከወሊድ ቀን ካለፈ ስለ አማራጮች መወያየት"
+                ]
+            },
+            dangerSigns: {
+                en: [
+                    "All general danger signs", "If water breaks", "If you have regular, strong contractions"
+                ],
+                am: [
+                    "ሁሉም አጠቃላይ የአደጋ ምልክቶች", "የውሃ መፍሰስ", "መደበኛ፣ ጠንካራ ምጥ ካለ"
+                ]
+            }
+        }
+    ],
+    dangerSignsCategorized: [
+        {
+            category: { en: "Bleeding & Discharge", am: "የደም መፍሰስ እና ፈሳሽ መውጣት" },
+            signs: { en: [
+                "Vaginal bleeding (any amount, anytime)",
+                "Sudden gush of fluid or leaking from vagina",
+                "Offensive vaginal discharge"
+            ], am: [
+                "የሴት ብልት ደም መፍሰስ (ማንኛውም መጠን፣ በማንኛውም ጊዜ)",
+                "ድንገተኛ የውሃ መፍሰስ ወይም ከሴት ብልት መፍሰስ",
+                "መጥፎ ጠረን ያለው የሴት ብልት ፈሳሽ መውጣት"
+            ]}
+        },
+        {
+            category: { en: "Neurological & Vision", am: "የነርቭ ሥርዓት እና እይታ" },
+            signs: { en: [
+                "Severe headache not relieved by simple pain relievers (like paracetamol)",
+                "Dizziness and blurring of vision",
+                "Convulsions (fits) and/or loss of consciousness"
+            ], am: [
+                "ከባድ ራስ ምታት በፓራሲታሞል የማይቀርብ",
+                "ማዞር እና የእይታ ማብራት",
+                "መንቀጥቀጥ (መጨናነቅ) እና/ወይም ንቃተ ህሊና ማጣት"
+            ]}
+        },
+        {
+            category: { en: "Digestive & General", am: "የምግብ መፈጨት እና አጠቃላይ" },
+            signs: { en: [
+                "Persistent nausea and vomiting (can't keep food/liquids down)",
+                "Chills, rigor, or fever",
+                "Persistent cough (dry or productive)"
+            ], am: [
+                "የማያቋርጥ ማቅለሽለሽ እና ማስታወክ (ምግብ/ፈሳሽ መያዝ አይችልም)",
+                "ብርድ ብርድ፣ መንቀጥቀጥ፣ ወይም ትኩሳት",
+                "የማያቋርጥ ሳል (ደረቅ ወይም ፈሳሽ ያለው)"
+            ]}
+        },
+        {
+            category: { en: "Physical Changes", am: "የአካል ለውጦች" },
+            signs: { en: [
+                "Swelling of hands, face, or generalized body swelling",
+                "Decreased or loss of fetal movement (once regular movements are established)",
+                "Premature onset of contractions/pushing down pain (before 37 weeks)"
+            ], am: [
+                "የእጅ፣ የፊት፣ ወይም አጠቃላይ የሰውነት እብጠት",
+                "የፅንስ እንቅስቃሴ መቀነስ ወይም ማጣት (መደበኛ እንቅስቃሴዎች ከተመሰረቱ በኋላ)",
+                "ቀደም ያለ የማህጸን መኮማተር/የወሊድ ህመም መጀመር (ከ37 ሳምንት በፊት)"
+            ]}
+        },
+        {
+            category: { en: "Pain & Discomfort", am: "ህመም እና ምቾት ማጣት" },
+            signs: { en: [
+                "Severe or unusual abdominal pain (flank, epigastric/upper stomach, or right upper quadrant pain)",
+                "Difficulty breathing or shortness of breath",
+                "Intense itching, especially on palms and soles"
+            ], am: [
+                "ከባድ ወይም ያልተለመደ የሆድ ህመም (ጎን፣ የላይኛው ሆድ፣ ወይም ቀኝ የላይኛው ክፍል ህመም)",
+                "መተንፈስ ጠበቅ ወይም የመተንፈስ ችግር",
+                "ጠንካራ ማሳክ፣ በተለይ በመዳፍ እና በእግር ጣቶች"
+            ]}
+        },
+        {
+            category: { en: "Other Warning Signs", am: "ሌሎች ማስጠንቀቂያ ምልክቶች" },
+            signs: { en: [
+                "Skin rash",
+                "Yellowish discoloration of eyes or skin (jaundice)"
+            ], am: [
+                "የቆዳ ሽፍታ",
+                "የዓይን ወይም የቆዳ ቢጫ ቀለም (ጃንዲስ)"
+            ]}
+        }
+    ],
+    dangerActionSteps: {
+        en: [
+            { title: "Don't Wait", desc: "Call your healthcare provider immediately or go to the nearest health facility" },
+            { title: "Bring Support", desc: "Have a family member or friend accompany you if possible" },
+            { title: "Stay Calm", desc: "Remember that many pregnancy complications can be successfully treated with prompt care" }
+        ],
+        am: [
+            { title: "አይጠብቁ", desc: "የጤና አገልግሎት ሰጪዎን ወዲያውኑ ይደውሉ ወይም ወደ ቅርቡ የጤና ተቋም ይሂዱ" },
+            { title: "ድጋፍ ያምጡ", desc: "በተቻለ መጠን የቤተሰብ አባል ወይም ጓደኛ ይዘው ይሂዱ" },
+            { title: "ረጋ ይበሉ", desc: "ብዙ የእርግዝና ችግሮች በፈጣን ሕክምና በተሳካ ሁኔታ ሊታከሙ እንደሚችሉ ያስታውሱ" }
+        ]
+    },
+    dangerPrevention: {
+        numbersTitle: { en: "Keep These Numbers Ready:", am: "እነዚህን ቁጥሮች ዝግጁ ያድርጉ:" },
+        numbers: { en: [
+            "Your healthcare provider's direct number",
+            "Nearest hospital/health center",
+            "Emergency transport contact",
+            "Family support person"
+        ], am: [
+            "የጤና አገልግሎት ሰጪዎ ቀጥተኛ ቁጥር",
+            "ቅርብ ሆስፒታል/የጤና ማዕከል",
+            "የአስቸኳይ ጊዜ ትራንስፖርት ቁጥር",
+            "የቤተሰብ ድጋፍ ሰጪ"
+        ]},
+        monitoringTitle: { en: "Regular Monitoring:", am: "መደበኛ ክትትል:" },
+        monitoring: { en: [
+            "Attend all scheduled ANC visits",
+            "Track fetal movements daily",
+            "Monitor your blood pressure",
+            "Follow medication schedules"
+        ], am: [
+            "ሁሉንም የታቀዱ ANC ጉብኝቶች ይከታተሉ",
+            "የፅንስ እንቅስቃሴ በየቀኑ ይከታተሉ",
+            "የደም ግፊትዎን ይቆጣጠሩ",
+            "የመድሃኒት መርሐግብር ይከተሉ"
+        ]}
+    }
+};
+
+// Extracted guideline content for LLM context
+const guidelineTextContent = `
+**I. App Introduction & Welcome**
+* Welcome Message: "Welcome to Your Pregnancy Journey! This guide, based on Ethiopia's National Antenatal Care (ANC) Guideline, helps you understand your care schedule, what to expect at each visit, and how to have a positive pregnancy experience. Remember, this information supports, but does not replace, advice from your healthcare provider."
+* Why ANC is Important:
+    * Ensures the best health for you and your baby.
+    * Identifies and manages potential risks early.
+    * Provides health education and promotion (nutrition, hygiene, lifestyle).
+    * Helps you prepare for birth and any emergencies.
+    * Connects you to other important health services.
+    * Aims for a healthy mother, healthy baby, and a positive pregnancy experience.
+
+**II. Your ANC Schedule: 8 Contacts for a Healthy Pregnancy**
+"The guideline recommends a minimum of 8 contacts with your healthcare provider during your pregnancy. This ensures you and your baby are closely monitored."
+1. 1st Contact: Up to 12 weeks of pregnancy
+2. 2nd Contact: Around 20 weeks of pregnancy
+3. 3rd Contact: Around 26 weeks of pregnancy
+4. 4th Contact: Around 30 weeks of pregnancy
+5. 5th Contact: Around 34 weeks of pregnancy
+6. 6th Contact: Around 36 weeks of pregnancy
+7. 7th Contact: Around 38 weeks of pregnancy
+8. 8th Contact: Around 40 weeks of pregnancy
+(Note: If you have specific health conditions, your provider may schedule more frequent visits.)
+
+**III. Detailed Breakdown of Each ANC Contact**
+--- **CONTACT 1: Your First Step (Up to 12 Weeks of Pregnancy)**
+* When: As soon as you know you are pregnant, ideally before 12 weeks.
+* Why this visit is important:
+    * Confirm your pregnancy and estimate your due date.
+    * Assess your overall health and identify any existing risks.
+    * Start planning for a healthy pregnancy and birth.
+    * Provide essential health information and counseling.
+* What to Expect (Assessments & Information):
+    * Welcome & Discussion: Your provider will ask about your personal details (name, age, address).
+    * Menstrual History: Last normal menstrual period (LNMP) to estimate gestational age and Expected Date of Delivery (EDD).
+    * Current Pregnancy: Any symptoms, your feelings about the pregnancy (planned/unplanned, wanted/unwanted).
+    * Past Pregnancies: Number of pregnancies, outcomes, any complications (e.g., bleeding, preterm birth, C-sections, high blood pressure).
+    * Medical History: Any existing conditions (e.g., diabetes, heart problems, TB, hypertension, anemia).
+    * Current Medications: Any medicines, herbal remedies, or supplements you are taking.
+    * Gynecological History: Any past infections, surgeries, cervical cancer screening.
+    * Nutritional History: Your eating habits, appetite.
+    * Social & Personal History: Use of alcohol, khat, tobacco (including secondhand smoke), caffeine. They will also sensitively ask about intimate partner violence and FGM.
+    * Mental Health: How you've been feeling emotionally (sadness, worry, stress).
+    * Physical Examination: General appearance (e.g., checking for paleness). Vital signs: Blood pressure, pulse, respiratory rate, temperature. Weight and height (to calculate BMI and track weight gain). Acute malnutrition screening: Mid-Upper Arm Circumference (MUAC). Examination of conjunctiva (eyes), oral mucosa (mouth), nail beds for paleness. Chest and heart check. (Vaginal examination is NOT routine, only if indicated for specific reasons).
+    * Laboratory Tests (Universal for all pregnant women): Hemoglobin (Hb) or Hematocrit (Hct) – to check for anemia. Blood group and Rh factor. Urine analysis (dipstick, microscopy, gram stain) – for infections, protein, sugar. HIV test. Hepatitis B Virus (HBV) test. Syphilis test.
+    * Ultrasound (Recommended before 24 weeks): To accurately date the pregnancy. To check for multiple pregnancies (twins, etc.). To detect some fetal anomalies. To check placenta location.
+    * Counseling & Health Promotion: Nutrition: Healthy diet, importance of diverse foods, what to avoid (raw meat/eggs, unpasteurized milk). Supplements: Information about starting Iron and Folic Acid (IFA) daily (typically starts at this visit or soon after, to be taken for at least 90 days, up to 180 days). Calcium supplementation will be discussed (usually starts from 14 weeks). Lifestyle: Avoiding alcohol, khat, smoking. Importance of personal hygiene, safe water, and sanitation. Gentle exercise. Danger Signs: You'll be taught about early pregnancy danger signs (see "General Danger Signs" section below). Birth Preparedness & Complication Readiness (BPCR): Initial discussion on planning for birth. Partner/Family Involvement: Encouraged. Td Vaccine: First dose of Tetanus-diphtheria (Td) vaccine if not previously vaccinated or if status is unknown.
+    * Abnormal Signs to Report Immediately (around this time): Vaginal bleeding (any amount). Severe lower abdominal pain or cramping. Persistent, severe nausea and vomiting (can't keep anything down). Fever or chills. Painful urination.
+
+--- **CONTACT 2: Checking In (Around 20 Weeks of Pregnancy)**
+* Why this visit is important: Monitor your health and baby's growth. Reinforce health messages. Provide necessary interventions.
+* What to Expect:
+    * Review & Discussion: Follow-up on previous findings and any concerns. Ask about fetal movements (you might start feeling them around this time). Any new complaints.
+    * Physical Examination: General appearance. Blood pressure. Weight (check weight gain). Check for pallor. MUAC (Mid-Upper Arm Circumference). Measure uterine (fundal) height. Listen for fetal heartbeat.
+    * Ultrasound: If not done before, an ultrasound scan before 24 weeks is recommended.
+    * Interventions & Counseling: IFA and Calcium: Start or continue. Assess adherence and counsel. (Calcium 1.5-2.0g daily from 14 weeks). Deworming: A single dose of Albendazole (400mg) or Mebendazole (500mg) is given (after the first trimester). Nutrition: Reinforce advice on optimal nutrition, diet diversity, extra meal. Danger Signs: Remind about danger signs. Mental Health & Intimate Partner Violence: Continued assessment. Td Vaccine: Second dose if first was given 4 weeks prior.
+    * Abnormal Signs to Report Immediately: Any of the general danger signs (see list below). Reduced or absent fetal movements (once you've started feeling them regularly). Leaking fluid from the vagina.
+
+--- **CONTACT 3: Mid-Pregnancy Check (Around 26 Weeks of Pregnancy)**
+* Why this visit is important: Continue monitoring maternal and fetal wellbeing. Screen for specific conditions.
+* What to Expect:
+    * Review & Discussion: Similar to 20-week visit.
+    * Physical Examination: Similar to 20-week visit.
+    * Laboratory Tests: Urine analysis: For proteinuria (sign of pre-eclampsia) and urine gram stain (for infection). Gestational Diabetes (OGTT): For high-risk pregnant women.
+    * Interventions & Counseling: Continue IFA and Calcium, assess adherence. Reinforce nutrition and danger signs counseling. Anti-D Immunoglobulin: If you are Rh-negative and your partner is Rh-positive (or unknown) and you are Coombs negative, you may receive Anti-D at 28 weeks (or around this time).
+    * Abnormal Signs to Report Immediately: Any of the general danger signs. Swelling of face, hands, or feet, severe headache, blurred vision (could be pre-eclampsia).
+
+--- **CONTACT 4: Entering the Third Trimester (Around 30 Weeks of Pregnancy)**
+* Why this visit is important: Focus on preparation for birth. Monitor for late-pregnancy complications.
+* What to Expect:
+    * Review & Discussion: Similar to previous.
+    * Physical Examination: Similar to previous.
+    * Laboratory Tests: Repeat Hb test. Repeat Syphilis and HIV testing: If earlier results were negative and you are considered at ongoing risk. Fetal Wellbeing: Assess if there's a discrepancy between fundal height and gestational age, or if fetal movement is reduced.
+    * Interventions & Counseling: Continue IFA and Calcium. Birth Preparedness and Complication Readiness (BPCR): Detailed discussion – where to deliver, transport, finances, support person, decision-maker. Counseling on optimal breastfeeding practices. Td Vaccine: Continue schedule as needed.
+    * Abnormal Signs to Report Immediately: Any of the general danger signs. Signs of preterm labor: regular contractions, pressure in pelvis, backache before 37 weeks.
+
+--- **CONTACT 5: Getting Closer (Around 34 Weeks of Pregnancy)**
+* Why this visit is important: Assess fetal position. Continue monitoring and preparation.
+* What to Expect:
+    * Review & Discussion: Similar to previous.
+    * Physical Examination: Similar to previous. Determine fetal presentation (baby's position: head down, breech, etc.).
+    * Laboratory Tests: Urine test for proteinuria for high-risk women. Repeat Syphilis and HIV if not done at 30 weeks and indicated.
+    * Interventions & Counseling: Continue IFA and Calcium. Counsel on breastfeeding and immunization for the baby. Counsel on stimulation for early childhood development (talking/singing to baby).
+    * Abnormal Signs to Report Immediately: Any of the general danger signs.
+
+--- **CONTACT 6: Nearing Full Term (Around 36 Weeks of Pregnancy)**
+* Why this visit is important: Final checks before the typical delivery window. Address any anxieties about labor.
+* What to Expect:
+    * Review & Discussion: Similar to previous.
+    * Physical Examination: Similar to previous.
+    * Interventions & Counseling: Continue IFA and Calcium. Assess mental health. Reinforce BPCR and danger signs.
+    * Abnormal Signs to Report Immediately: Any of the general danger signs.
+
+--- **CONTACT 7: Almost There! (Around 38 Weeks of Pregnancy)**
+* Why this visit is important: Address any fears or myths about labor and delivery. Monitor fetal wellbeing closely.
+* What to Expect:
+    * Review & Discussion: Inquire about any fears, myths, worries about labor and delivery.
+    * Physical Examination: Similar to previous.
+    * Laboratory Tests: Repeat Hb test.
+    * Interventions & Counseling: Continue IFA and Calcium. Advise on fetal movement counting. Reinforce when to come to the facility for delivery.
+    * Abnormal Signs to Report Immediately: Any of the general danger signs. Decreased fetal movement.
+
+--- **CONTACT 8: Due Date Check (Around 40 Weeks of Pregnancy)**
+* Why this visit is important: Assess if labor is starting or if further action is needed if overdue. Final fetal wellbeing check.
+* What to Expect:
+    * Review & Discussion: Similar to previous.
+    * Physical Examination: Similar to previous. Review fetal movement counting.
+    * Ultrasound scanning for fetal wellbeing assessment (if available and indicated).
+    * Interventions & Counseling: Discuss signs of labor and when to come to the hospital. Discuss options if pregnancy goes beyond the due date.
+    * Abnormal Signs to Report Immediately: Any of the general danger signs. If water breaks, or if you have regular, strong contractions.
+
+--- **IV. General Danger Signs in Pregnancy (Report ANY of these to your healthcare provider IMMEDIATELY, at ANY time):**
+* Vaginal bleeding (any amount, anytime).
+* Sudden gush of fluid or leaking of fluid from the vagina.
+* Offensive vaginal discharge.
+* Chills, rigor, or fever.
+* Severe headache not relieved by simple pain relievers (like paracetamol).
+* Dizziness and blurring of vision.
+* Persistent nausea and vomiting (can't keep food/liquids down).
+* Persistent cough (dry or productive).
+* Swelling of hands, face, or generalized body swelling.
+* Decreased or loss of fetal movement (once regular movements are established).
+* Convulsions (fits) and/or loss of consciousness.
+* Premature onset of contractions/pushing down pain (before 37 weeks).
+* Severe or unusual abdominal pain (flank, epigastric/upper stomach, or right upper quadrant pain).
+* Skin rash.
+* Difficulty breathing or shortness of breath.
+* Intense itching, especially on palms and soles.
+* Yellowish discoloration of eyes or skin (jaundice).
+
+**V. Key Takeaways for a Positive Pregnancy Experience**
+* Attend all your ANC visits: This is crucial for your health and your baby's.
+* Eat a healthy, balanced, and diverse diet: Include fruits, vegetables, proteins, and whole grains. Take an extra meal daily.
+* Take your supplements: Iron, Folic Acid, and Calcium are very important.
+* Stay hydrated: Drink plenty of clean water.
+* Practice good hygiene: Wash hands frequently, maintain personal and environmental cleanliness.
+* Avoid harmful substances: No alcohol, khat, smoking, or unprescribed drugs.
+* Engage in regular, non-strenuous physical activity if you are able.
+* Know the danger signs: And seek care immediately if you experience any.
+* Prepare for birth: Discuss your birth plan with your provider and family.
+* Involve your partner/family: Their support is valuable.
+* Communicate with your provider: Ask questions, share your concerns.
+* Rest and manage stress: Important for your wellbeing.
+
+**VI. Disclaimer for the App**
+"This application provides general health information based on the Ethiopian National Antenatal Care Guideline (February 2022). It is intended for educational purposes only and should not be considered a substitute for professional medical advice, diagnosis, or treatment from a qualified healthcare provider. Always seek the advice of your doctor or other qualified health professional with any questions you may have regarding a medical condition or your pregnancy. Never disregard professional medical advice or delay in seeking it because of something you have read on this application."
+`;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const timelineGrid = document.getElementById('pregnancy-timeline-grid');
+    const detailedVisitsContainer = document.getElementById('detailed-visits-container');
+    const dangerSignsCategorizedGrid = document.getElementById('danger-signs-categorized-grid');
+
+    const weekInput = document.getElementById('week-input');
+    const updateWeekBtn = document.getElementById('update-week-btn');
+    const weeklyPlaceholder = document.getElementById('weekly-content-placeholder');
+    const weeklyDisplay = document.getElementById('weekly-content-display');
+
+    const qaInput = document.getElementById('qa-input');
+    const qaAskBtn = document.getElementById('qa-ask-btn');
+    const qaResponseArea = document.getElementById('qa-response-area');
+    const qaLoadingIndicator = document.getElementById('qa-loading-indicator');
+
+    // Function to render the Pregnancy Timeline cards
+    const renderPregnancyTimeline = (currentPhase = 0) => {
+        timelineGrid.innerHTML = appData.ancContacts.map(visit => {
+            const isCurrent = visit.id === currentPhase;
+            const isCompleted = visit.id < currentPhase;
+            const cardClasses = `pregnancy-card transition-all duration-300 ${
+                isCurrent ? 'border-sage-400 bg-sage-50 scale-105' :
+                isCompleted ? 'border-terracotta-300 bg-terracotta-50' :
+                'border-sage-200'
+            }`;
+            const badgeVariantClass = isCurrent ? "badge-default bg-sage-500 text-white" :
+                                      isCompleted ? "badge-secondary bg-terracotta-500 text-white" :
+                                      "badge-outline border-sage-300";
+            
+            return `
+                <div class="${cardClasses}">
+                    <div class="pregnancy-card-header pb-2">
+                        <div class="flex items-center justify-between">
+                            <span class="badge ${badgeVariantClass}">
+                                Contact ${visit.id}
+                            </span>
+                            ${isCompleted ? `
+                                <div class="bg-terracotta-500 rounded-full p-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-white"><polyline points="20 6 9 17 4 12"/></svg>
+                                </div>
+                            ` : ''}
+                            ${isCurrent ? `
+                                <div class="bg-sage-500 rounded-full p-1 animate-pulse">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <h4 class="pregnancy-card-title text-sm font-semibold text-terracotta-800">
+                            ${visit.short_desc[appData.currentLang]}
+                        </h4>
+                    </div>
+                    <div class="pregnancy-card-content">
+                        <p class="text-xs text-sage-600 mb-2 font-medium">
+                            Week ${visit.week[appData.currentLang]}
+                        </p>
+                        <p class="text-sm text-sage-700 leading-relaxed">
+                            ${visit.importance[appData.currentLang]}
+                        </p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    };
+
+    // Function to render the Detailed Visits accordions
+    const renderDetailedVisits = () => {
+        detailedVisitsContainer.innerHTML = appData.ancContacts.map(visit => `
+            <div id="contact-${visit.id}" class="pregnancy-card border-sage-200 overflow-hidden">
+                <button class="accordion-button w-full text-left p-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition" data-contact-id="${visit.id}">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg mr-4">${visit.id}</div>
+                        <div>
+                            <h3 class="font-bold text-lg text-terracotta-800">${visit.short_desc[appData.currentLang]}</h3>
+                            <p class="text-gray-600">${visit.week[appData.currentLang]} ${appData.currentLang === 'en' ? 'weeks' : 'ሳምንታት'}</p>
+                        </div>
+                    </div>
+                    <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <div class="p-4 md:p-6 border-t border-gray-200">
+                        <div class="bg-cream-100 p-3 rounded-lg mb-4">
+                            <h4 class="font-semibold text-terracotta-800 mb-1" data-translate-key="accordion_why_title">Why this visit is important:</h4>
+                            <p class="text-sage-700 text-sm">${visit.importance[appData.currentLang]}</p>
+                        </div>
+
+                        <div class="tabs-list mb-4 flex flex-wrap gap-2">
+                            <button class="tabs-trigger text-xs md:text-sm w-full md:w-auto active" data-contact-id="${visit.id}" data-tab-value="assessments" data-translate-key="tab_assessments">Assessments</button>
+                            <button class="tabs-trigger text-xs md:text-sm w-full md:w-auto" data-contact-id="${visit.id}" data-tab-value="physical" data-translate-key="tab_physical">Physical Exam</button>
+                            <button class="tabs-trigger text-xs md:text-sm w-full md:w-auto" data-contact-id="${visit.id}" data-tab-value="labs" data-translate-key="tab_labs">Lab Tests</button>
+                            <button class="tabs-trigger text-xs md:text-sm w-full md:w-auto" data-contact-id="${visit.id}" data-tab-value="counseling" data-translate-key="tab_counseling">Counseling</button>
+                            <button class="tabs-trigger text-xs md:text-sm w-full md:w-auto" data-contact-id="${visit.id}" data-tab-value="danger" data-translate-key="tab_danger">Danger Signs</button>
+                        </div>
+
+                        <div class="tab-content bg-gray-50 p-4 rounded-lg">
+                            <div class="tab-pane" data-contact-id="${visit.id}" data-tab-value="assessments">
+                                <div class="space-y-2">
+                                    <h4 class="font-semibold text-sage-800" data-translate-key="tab_assessments_title">What to Expect - Assessments & Discussion:</h4>
+                                    <ul class="space-y-1">
+                                        ${visit.assessments[appData.currentLang].map(item => `
+                                            <li class="flex items-start space-x-2 text-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-sage-500 mt-1 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                                <span class="text-sage-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane hidden" data-contact-id="${visit.id}" data-tab-value="physical">
+                                <div class="space-y-2">
+                                    <h4 class="font-semibold text-sage-800" data-translate-key="tab_physical_title">Physical Examination:</h4>
+                                    <ul class="space-y-1">
+                                        ${visit.physicalExam[appData.currentLang].map(item => `
+                                            <li class="flex items-start space-x-2 text-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-sage-500 mt-1 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                                <span class="text-sage-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane hidden" data-contact-id="${visit.id}" data-tab-value="labs">
+                                <div class="space-y-2">
+                                    <h4 class="font-semibold text-sage-800" data-translate-key="tab_labs_title">Laboratory Tests:</h4>
+                                    <ul class="space-y-1">
+                                        ${visit.labTests[appData.currentLang].map(item => `
+                                            <li class="flex items-start space-x-2 text-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-sage-500 mt-1 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                                <span class="text-sage-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane hidden" data-contact-id="${visit.id}" data-tab-value="counseling">
+                                <div class="space-y-2">
+                                    <h4 class="font-semibold text-sage-800" data-translate-key="tab_counseling_title">Counseling & Interventions:</h4>
+                                    <ul class="space-y-1">
+                                        ${visit.counseling[appData.currentLang].map(item => `
+                                            <li class="flex items-start space-x-2 text-sm">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-sage-500 mt-1 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                                                <span class="text-sage-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="tab-pane hidden" data-contact-id="${visit.id}" data-tab-value="danger">
+                                <div class="space-y-2">
+                                    <h4 class="font-semibold text-red-800" data-translate-key="tab_danger_title">Danger Signs to Report Immediately:</h4>
+                                    <ul class="space-y-1">
+                                        ${visit.dangerSigns[appData.currentLang].map(item => `
+                                            <li class="flex items-start space-x-2 text-sm">
+                                                <div class="bg-red-500 rounded-full p-0.5 mt-1 flex-shrink-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-2 w-2 text-white"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                                </div>
+                                                <span class="text-red-700">${item}</span>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    // Function to render the Categorized Danger Signs
+    const renderDangerSignsCategorized = () => {
+        dangerSignsCategorizedGrid.innerHTML = appData.dangerSignsCategorized.map((category, categoryIndex) => `
+            <div class="pregnancy-card border-red-200 hover:border-red-300">
+                <div class="pregnancy-card-header pb-4">
+                    <h4 class="pregnancy-card-title flex items-center space-x-3 text-red-800">
+                        <span class="text-lg">${category.category[appData.currentLang]}</span>
+                    </h4>
+                </div>
+                <div class="pregnancy-card-content">
+                    <ul class="space-y-3">
+                        ${category.signs[appData.currentLang].map((sign, signIndex) => `
+                            <li class="flex items-start space-x-2">
+                                <div class="bg-red-500 rounded-full p-1 mt-1 flex-shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 text-white"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                                </div>
+                                <span class="text-sm text-red-700 leading-relaxed">${sign}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            </div>
+        `).join('');
+    };
+
+    const updateAllText = () => {
+        // Update elements with direct data-translate-key
+        document.querySelectorAll('[data-translate-key]').forEach(el => {
+            const key = el.getAttribute('data-translate-key');
+            if (appData.translations[key]) {
+                el.textContent = appData.translations[key][appData.currentLang];
+            }
+        });
+
+        // Re-render components that use dynamic content generation with translation
+        // For Pregnancy Timeline, we need to pass the current week to update its active/completed states
+        const currentWeekVal = parseInt(weekInput.value);
+        const currentPhase = appData.ancContacts.find(c => currentWeekVal <= c.week.en.match(/\d+/)[0])?.id || 0;
+        renderPregnancyTimeline(currentPhase);
+        renderDetailedVisits();
+        renderDangerSignsCategorized();
+
+        // Update weekly guide content if displayed
+        if (!weeklyDisplay.classList.contains('hidden')) {
+            const week = parseInt(weekInput.value);
+            if (week >= 1 && week <= 41) {
+                const relevantWeeks = Object.keys(appData.weeklyGuide).map(Number).sort((a,b) => a-b);
+                let relevantDataKey = relevantWeeks.find(w => week <= w);
+                if (!relevantDataKey) relevantDataKey = relevantWeeks[relevantWeeks.length - 1];
+                
+                const data = appData.weeklyGuide[relevantDataKey];
+                
+                document.getElementById('weekly-trimester').textContent = appData.translations[data.trimesterKey][appData.currentLang];
+                document.getElementById('weekly-title').textContent = data.title[appData.currentLang];
+                document.getElementById('weekly-focus-text').textContent = data.focus[appData.currentLang];
+                document.getElementById('weekly-symptoms-text').textContent = data.symptoms[appData.currentLang];
+                document.getElementById('weekly-milestones-text').textContent = data.milestones[appData.currentLang];
+                document.getElementById('weekly-health-tips-text').textContent = data.healthTips[appData.currentLang];
+            }
+        }
+    };
+    
+    // Initial render and translation
+    updateAllText();
+
+    const translateBtn = document.getElementById('translate-btn');
+    translateBtn.addEventListener('click', () => {
+        appData.currentLang = appData.currentLang === 'en' ? 'am' : 'en';
+        translateBtn.textContent = appData.currentLang === 'en' ? 'አማርኛ' : 'English';
+        updateAllText();
+    });
+
+    detailedVisitsContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.accordion-button')) {
+            const button = e.target.closest('.accordion-button');
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            document.querySelectorAll('.accordion-content').forEach(item => {
+                if (item !== content) {
+                    item.style.maxHeight = '0px';
+                    item.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                }
+            });
+
+            if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.add('rotate-180');
+            } else {
+                content.style.maxHeight = "0px";
+                icon.classList.remove('rotate-180');
+            }
+        }
+        
+        if (e.target.closest('.tabs-trigger')) {
+            const button = e.target.closest('.tabs-trigger');
+            const contactId = button.dataset.contactId;
+            const tabValue = button.dataset.tabValue;
+
+            document.querySelectorAll(`.tabs-trigger[data-contact-id="${contactId}"]`).forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            document.querySelectorAll(`.tab-pane[data-contact-id="${contactId}"]`).forEach(pane => pane.classList.add('hidden'));
+            document.querySelector(`.tab-pane[data-contact-id="${contactId}"][data-tab-value="${tabValue}"]`).classList.remove('hidden');
+        }
+    });
+
+    document.querySelectorAll('.timeline-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const contactId = this.dataset.contactId;
+            const targetElement = document.getElementById(`contact-${contactId}`);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                setTimeout(() => {
+                    const accordionButton = targetElement.querySelector('.accordion-button');
+                    const content = accordionButton.nextElementSibling;
+                    if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
+                       accordionButton.click();
+                    }
+                }, 300);
+            }
+        });
+    });
+
+    updateWeekBtn.addEventListener('click', () => {
+        const week = parseInt(weekInput.value);
+        if (week >= 1 && week <= 41) {
+            const relevantWeeks = Object.keys(appData.weeklyGuide).map(Number).sort((a,b) => a-b);
+            let relevantDataKey = relevantWeeks.find(w => week <= w);
+            if (!relevantDataKey) relevantDataKey = relevantWeeks[relevantWeeks.length - 1];
+            
+            const data = appData.weeklyGuide[relevantDataKey];
+            
+            document.getElementById('weekly-trimester').textContent = appData.translations[data.trimesterKey][appData.currentLang];
+            document.getElementById('weekly-title').textContent = data.title[appData.currentLang];
+            document.getElementById('weekly-focus-text').textContent = data.focus[appData.currentLang];
+            document.getElementById('weekly-symptoms-text').textContent = data.symptoms[appData.currentLang];
+            document.getElementById('weekly-milestones-text').textContent = data.milestones[appData.currentLang];
+            document.getElementById('weekly-health-tips-text').textContent = data.healthTips[appData.currentLang];
+
+            weeklyPlaceholder.classList.add('hidden');
+            weeklyDisplay.classList.remove('hidden');
+
+            // Update timeline cards based on current week
+            const currentPhase = appData.ancContacts.find(c => week <= c.week.en.match(/\d+/)[0])?.id || 0;
+            renderPregnancyTimeline(currentPhase);
+        }
+    });
+
+   // PASTE THIS NEW BLOCK IN ITS PLACE
+// =================================================================
+qaAskBtn.addEventListener('click', async () => {
+    const userQuestion = qaInput.value.trim();
+    if (!userQuestion) {
+        qaResponseArea.textContent = appData.translations.qa_initial_prompt[appData.currentLang];
+        return;
+    }
+
+    qaLoadingIndicator.classList.remove('hidden');
+    qaResponseArea.textContent = ''; // Clear previous response
+
+    try {
+        let chatHistory = []; // We manage history here now
+        const payload = {
+            chatHistory,
+            userQuestion,
+            guidelineTextContent, // Pass the context text
+            currentLang: appData.currentLang // Pass the current language
+        };
+
+        // This is the updated part: call our own serverless function
+        const response = await fetch('/.netlify/functions/ask-gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+            throw new Error(result.error);
+        }
+
+        if (result.candidates && result.candidates.length > 0 &&
+            result.candidates[0].content && result.candidates[0].content.parts &&
+            result.candidates[0].content.parts.length > 0) {
+            const text = result.candidates[0].content.parts[0].text;
+            qaResponseArea.textContent = text;
+        } else {
+            qaResponseArea.textContent = appData.translations.qa_no_answer[appData.currentLang];
+        }
+    } catch (error) {
+        console.error('Error fetching from Netlify function:', error);
+        qaResponseArea.textContent = appData.translations.qa_error[appData.currentLang];
+    } finally {
+        qaLoadingIndicator.classList.add('hidden');
+    }
+});
+// =================================================================
+// END OF THE NEW BLOCK
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        const headerHeight = document.getElementById('header').offsetHeight;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerHeight - 20;
+            if (pageYOffset >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
